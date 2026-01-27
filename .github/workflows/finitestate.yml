@@ -49,4 +49,3 @@ jobs:
           -o finitestate.jar
 
         java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION_NAME || true
-
