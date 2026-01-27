@@ -36,7 +36,7 @@ jobs:
         curl -X 'GET' "https://$FINITE_STATE_DOMAIN/api/config/clt" \
           -H "X-Authorization: $FINITE_STATE_AUTH_TOKEN" \
           -o finitestate.jar
-        
+
         java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION --all || true
     - name: Finite State PR Scan
       if: ${{ github.event_name == 'pull_request' }}
@@ -49,3 +49,4 @@ jobs:
           -o finitestate.jar
 
         java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION_NAME || true
+
