@@ -37,8 +37,7 @@ jobs:
           -H "X-Authorization: $FINITE_STATE_AUTH_TOKEN" \
           -o finitestate.jar
         
-        java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION --all
-      continue-on-error: true
+        java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION --all || true
     - name: Finite State PR Scan
       if: ${{ github.event_name == 'pull_request' }}
       env:
@@ -49,6 +48,4 @@ jobs:
           -H "X-Authorization: $FINITE_STATE_AUTH_TOKEN" \
           -o finitestate.jar
 
-        java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION_NAME
-      continue-on-error: true
-      
+        java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION_NAME || true
