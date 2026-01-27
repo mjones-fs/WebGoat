@@ -51,3 +51,4 @@ jobs:
 
         java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION_NAME
       continue-on-error: true
+      
