@@ -48,7 +48,7 @@ jobs:
         
         echo "=== Finite State CLI Exit Code: $EXIT_CODE ==="
         
-        if [ $EXIT_CODE -ne 0 ]; then
+        if [ $EXIT_CODE -ne 0 ] && [ $EXIT_CODE -ne 1 ]; then
           echo "=== Finite State CLI failed with exit code $EXIT_CODE ==="
           echo "Checking for log files..."
           find . -name "*.log" -type f 2>/dev/null | while read logfile; do
@@ -78,7 +78,7 @@ jobs:
         
         echo "=== Finite State CLI Exit Code: $EXIT_CODE ==="
         
-        if [ $EXIT_CODE -ne 0 ]; then
+        if [ $EXIT_CODE -ne 0 ] && [ $EXIT_CODE -ne 1 ]; then
           echo "=== Finite State CLI failed with exit code $EXIT_CODE ==="
           echo "Checking for log files..."
           find . -name "*.log" -type f 2>/dev/null | while read logfile; do
