@@ -707,7 +707,7 @@
                   <arguments>
                     <argument>java</argument>
                     <argument>-jar</argument>
-                    <argument>-Dlogging.pattern.console=</argument>
+                    <argument>-Dlogging.level.root=WARN</argument>
                     <argument>-Dwebgoat.server.directory=${java.io.tmpdir}/webgoat_${webgoat.port}</argument>
                     <argument>-Dwebgoat.user.directory=${java.io.tmpdir}/webgoat_${webgoat.port}</argument>
                     <argument>-Dspring.main.banner-mode=off</argument>
@@ -726,6 +726,8 @@
                     <argument>java.base/java.io=ALL-UNNAMED</argument>
                     <argument>--add-opens</argument>
                     <argument>java.base/java.util=ALL-UNNAMED</argument>
+                    <argument>--add-opens</argument>
+                    <argument>java.base/sun.misc=ALL-UNNAMED</argument>
                     <argument>${project.build.directory}/webgoat-${project.version}.jar</argument>
                   </arguments>
                   <waitForInterrupt>false</waitForInterrupt>
