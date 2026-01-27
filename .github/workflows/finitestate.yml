@@ -1,0 +1,58 @@
+# example workflow for Finite State scans using the CLT
+name: fs-clt
+on:
+  push:
+    branches: [ main, master, develop, stage, release ]
+  pull_request:
+    branches: [ main, master, develop, stage, release ]
+  workflow_dispatch:
+jobs:
+  finitestate:
+    runs-on: ubuntu-latest
+    env:
+      FINITE_STATE_DOMAIN: ${{ vars.FINITE_STATE_DOMAIN }}
+      FINITE_STATE_AUTH_TOKEN: ${{ secrets.FINITE_STATE_AUTH_TOKEN }}
+      GITHUB_USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_REPOSITORY_OWNER_NAME: ${{ github.repository_owner }}
+      GITHUB_REPOSITORY_NAME: ${{ github.event.repository.name }}
+      GITHUB_REPOSITORY_BRANCH_NAME: ${{ github.ref_name }}
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v6
+    - name: Setup Java JDK
+      uses: actions/setup-java@v5
+      with:
+        java-version: 21
+        distribution: temurin
+        cache: maven
+    - name: Maven Build
+      run: mvn -B -DskipTests package
+    - name: Finite State Full Scan
+      if: ${{ github.event_name != 'pull_request' }}
+      env:
+        PROJECT_NAME: ${{ github.event.repository.name }}
+        PROJECT_VERSION: ${{ github.ref_name }}
+      run: |
+        curl -X 'GET' "https://$FINITE_STATE_DOMAIN/api/config/clt" \
+          -H "X-Authorization: $FINITE_STATE_AUTH_TOKEN" \
+          -o finitestate.jar
+
+        java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION --all
+    - name: Finite State PR Scan
+      if: ${{ github.event_name == 'pull_request' }}
+      env:
+        PROJECT_NAME: ${{ github.event.repository.name }}
+        PROJECT_VERSION_NAME: ${{ github.base_ref }}
+      run: |
+        curl -X 'GET' "https://$FINITE_STATE_DOMAIN/api/config/clt" \
+          -H "X-Authorization: $FINITE_STATE_AUTH_TOKEN" \
+          -o finitestate.jar
+
+        java -jar finitestate.jar --scan --name=$PROJECT_NAME --version=$PROJECT_VERSION_NAME
+#    - name: Save Logs
+#      if: always()
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: bridge-logs
+#        path: ${{ github.workspace }}/.bridge
+#        include-hidden-files: true
