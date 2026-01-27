@@ -575,6 +575,7 @@
             </includes>
             <removeUnusedImports></removeUnusedImports>
             <googleJavaFormat>
+              <version>1.23.0</version>
               <style>GOOGLE</style>
               <reflowLongStrings>true</reflowLongStrings>
             </googleJavaFormat>
