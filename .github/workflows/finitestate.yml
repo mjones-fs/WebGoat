@@ -57,6 +57,9 @@ jobs:
           done
           exit $EXIT_CODE
         fi
+        
+        echo "=== Finite State CLI completed successfully (exit code: $EXIT_CODE) ==="
+        exit 0
     - name: Finite State PR Scan
       if: ${{ github.event_name == 'pull_request' }}
       env:
@@ -87,6 +90,9 @@ jobs:
           done
           exit $EXIT_CODE
         fi
+        
+        echo "=== Finite State CLI completed successfully (exit code: $EXIT_CODE) ==="
+        exit 0
 #    - name: Save Logs
 #      if: always()
 #      uses: actions/upload-artifact@v4
