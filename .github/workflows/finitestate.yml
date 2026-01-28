@@ -31,7 +31,7 @@ jobs:
       if: ${{ github.event_name != 'pull_request' }}
       env:
         PROJECT_NAME: ${{ github.event.repository.name }}
-        PROJECT_VERSION: ${{ github.ref_name }}
+        PROJECT_VERSION: "${{ github.ref_name }}-${{ github.sha }}"
       run: |
         curl -X 'GET' "https://$FINITE_STATE_DOMAIN/api/config/clt" \
           -H "X-Authorization: $FINITE_STATE_AUTH_TOKEN" \
