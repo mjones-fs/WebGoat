@@ -43,7 +43,7 @@ jobs:
         # Maybe add some code to create a SARIF file from the scan results and make available to GitHub
 
         # Run a binary scan, including Binary SAST, Config Analysis, and Reachability Analysis
-        java -jar finitestate.jar --upload=sca,sast,config,vulnerability_analysis --version=$PROJECT_VERSION target/webgoat-2025.4-SNAPSHOT.jar || true
+        java -jar finitestate.jar --upload=sca,sast,config,vulnerability_analysis --name=$PROJECT_NAME --version=$PROJECT_VERSION target/webgoat-2025.4-SNAPSHOT.jar || true
     - name: Finite State PR Scan
       if: ${{ github.event_name == 'pull_request' }}
       env:
