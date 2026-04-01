@@ -1,0 +1,24 @@
+name: Finite State Security Scan
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch: {}
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install fs-cli
+        run: curl -fsSL https://raw.githubusercontent.com/FiniteStateInc/customer-resources/main/02-ci-cd-automation/fs-cli/install.sh | sh
+
+      - name: Scan dependencies
+        run: |
+          fs-cli scan . \
+            --token "${{ secrets.FINITE_STATE_AUTH_TOKEN }}" \
+            --endpoint "https://${{ vars.FINITE_STATE_DOMAIN }}" \
+            --name "${{ github.event.repository.name }}" \
+            --project-id "${{ github.event.repository.name }}" \
+            --version "${{ github.ref_name }}-${{ github.sha }}"
