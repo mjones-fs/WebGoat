@@ -9,15 +9,15 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - name: Install fs-cli
-        run: curl -fsSL https://raw.githubusercontent.com/FiniteStateInc/customer-resources/main/02-ci-cd-automation/fs-cli/install.sh | sh
+      - uses: FiniteStateInc/finite-state-actions/actions/setup@v1
+        with:
+          api-token: ${{ secrets.FINITE_STATE_AUTH_TOKEN }}
+          domain: ${{ vars.FINITE_STATE_DOMAIN }}
+          project-id: "${{ github.event.repository.name }}"
 
-      - name: Scan dependencies
-        run: |
-          fs-cli scan . \
-            --token "${{ secrets.FINITE_STATE_AUTH_TOKEN }}" \
-            --endpoint "https://${{ vars.FINITE_STATE_DOMAIN }}" \
-            --name "${{ github.event.repository.name }}" \
-            --version "${{ github.ref_name }}-${{ github.sha }}"
+      - uses: FiniteStateInc/finite-state-actions/actions/scan@v1
+        with:
+          version: ${{ github.ref_name }}
+          
