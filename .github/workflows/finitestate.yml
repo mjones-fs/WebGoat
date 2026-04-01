@@ -20,5 +20,4 @@ jobs:
             --token "${{ secrets.FINITE_STATE_AUTH_TOKEN }}" \
             --endpoint "https://${{ vars.FINITE_STATE_DOMAIN }}" \
             --name "${{ github.event.repository.name }}" \
-            --project-id "${{ github.event.repository.name }}" \
             --version "${{ github.ref_name }}-${{ github.sha }}"
