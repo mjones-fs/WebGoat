@@ -15,7 +15,7 @@ jobs:
         with:
           api-token: ${{ secrets.FINITE_STATE_AUTH_TOKEN }}
           domain: ${{ vars.FINITE_STATE_DOMAIN }}
-          project-id: "${{ github.event.repository.name }}"
+          project-name: "${{ github.event.repository.name }}"
 
       - uses: FiniteStateInc/finite-state-actions/actions/scan@v1
         with:
