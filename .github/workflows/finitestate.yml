@@ -19,5 +19,5 @@ jobs:
 
       - uses: FiniteStateInc/finite-state-actions/actions/scan@v1
         with:
-          version: ${{ github.ref_name }}
+          version: ${{ github.ref_name }}..${{ github.sha }}
           
