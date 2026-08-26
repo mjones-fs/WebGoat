@@ -11,12 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: FiniteStateInc/finite-state-actions/actions/setup@v2
+      - uses: FiniteStateInc/finite-state-actions/actions/scan@v2
         with:
           api-token: ${{ secrets.FINITE_STATE_AUTH_TOKEN }}
           domain: ${{ vars.FINITE_STATE_DOMAIN }}
-          project-name: "${{ github.event.repository.name }}"
-
-      - uses: FiniteStateInc/finite-state-actions/actions/scan@v2
-        with:
+          project-name: ${{ github.event.repository.name }}
           version: ${{ github.ref_name }}..${{ github.sha }}
