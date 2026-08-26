@@ -47,12 +47,17 @@ jobs:
             -   name: Build with Maven
                 run: mvn --no-transfer-progress verify
 
-             -  name: Finite State Security Scan
-             -  uses: FiniteStateInc/finite-state-actions/actions/upload@v2
+            -   name: Build with Maven
+                run: mvn --no-transfer-progress verify
+                
+            -   name: Finite State Security Scan
+                if: matrix.os == 'ubuntu-latest' && github.event_name == 'push'
+                uses: FiniteStateInc/finite-state-actions/actions/upload@v2
                 with:
                     api-token: ${{ secrets.FINITE_STATE_AUTH_TOKEN }}
                     domain: ${{ vars.FINITE_STATE_DOMAIN }}
                     project-name: ${{ github.event.repository.name }}-BINARY
-                    version: ${{ github.ref_name }}..${{ github.sha }}
+                    version: ${{ github.sha }}
                     type: sca,sast,config,vulnerability-analysis
-                    file: target/webgoat-2026.2-SNAPSHOT.jar
+                    file: target/webgoat-*.jar
+                
