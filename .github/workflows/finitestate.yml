@@ -22,7 +22,3 @@ jobs:
           format: cyclonedx
           include-vex: true
           artifact-name: 'sbom-${{ github.ref_name }}'
-          
-
-
-
