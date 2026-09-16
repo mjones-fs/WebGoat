@@ -17,6 +17,18 @@ jobs:
           domain: ${{ vars.FINITE_STATE_DOMAIN }}
           project-name: ${{ github.event.repository.name }}
           version: ${{ github.ref_name }}..${{ github.sha }}
+
+      - name: Wait for scan to complete
+        run: |
+          FS_TOKEN="$FINITE_STATE_AUTH_TOKEN" fs-cli query \
+            --type scan \
+            --format json \
+            --endpoint "https://${FINITE_STATE_DOMAIN}" \
+            --version-id "${FINITE_STATE_VERSION_ID}" \
+            --wait \
+            --poll-timeout 30 \
+            --fail-on-scan-incomplete
+
       - uses: FiniteStateInc/finite-state-actions/actions/download-sbom@v2
         with:
           format: cyclonedx
