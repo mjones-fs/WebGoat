@@ -17,3 +17,12 @@ jobs:
           domain: ${{ vars.FINITE_STATE_DOMAIN }}
           project-name: ${{ github.event.repository.name }}
           version: ${{ github.ref_name }}..${{ github.sha }}
+      - uses: FiniteStateInc/finite-state-actions/actions/download-sbom@v2
+        with:
+          format: cyclonedx
+          include-vex: true
+          artifact-name: 'sbom-${{ github.ref_name }}'
+          
+
+
+
