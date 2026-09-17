@@ -20,8 +20,8 @@ jobs:
 
       - uses: FiniteStateInc/finite-state-actions/actions/wait@v2
 
-      - uses: FiniteStateInc/finite-state-actions/actions/download-sbom@v2
+      - uses: FiniteStateInc/finite-state-actions/actions/run-report@v2
         with:
-          format: cyclonedx
-          include-vex: true
-          artifact-name: 'sbom-${{ github.ref_name }}'
+          recipe: 'Findings by Project'
+          project-id: ${{ steps.scan.outputs.project-id }}
+          version-id: ${{ steps.scan.outputs.version-id }}
