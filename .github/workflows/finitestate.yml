@@ -25,3 +25,10 @@ jobs:
           recipe: 'Findings by Project'
           project-id: ${{ steps.scan.outputs.project-id }}
           version-id: ${{ steps.scan.outputs.version-id }}
+          
+      - uses: FiniteStateInc/finite-state-actions/actions/download-sbom@v2
+        with:
+          format: cyclonedx
+          output-file: out/sbom.spdx.json
+
+      - run: echo "Exported ${{ steps.sbom.outputs.component-count }} components"
