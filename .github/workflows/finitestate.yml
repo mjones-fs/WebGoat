@@ -29,6 +29,6 @@ jobs:
       - uses: FiniteStateInc/finite-state-actions/actions/download-sbom@v2
         with:
           format: cyclonedx
-          output-file: out/sbom.spdx.json
+          output-file: out/sbom.cdx.json
 
       - run: echo "Exported ${{ steps.sbom.outputs.component-count }} components"
